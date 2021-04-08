@@ -7,6 +7,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let pokemon of pokemon$ | async">
+        <td>{{ pokemon.id }}</td>
         <td>
           <img [src]="pokemon.sprites.front_default" />
         </td>
@@ -17,4 +18,9 @@
     </tbody>
   </table>
 </section>
-<pagination [totalItems]="totalPokemon" [maxSize]="7"></pagination>
+<div class="paginator-wrapper">
+  <pagination [totalItems]="totalPokemon" 
+              [maxSize]="7"
+              [itemsPerPage]="itemsPerPage"
+              (pageChanged)="changePage($event)"></pagination>
+</div>

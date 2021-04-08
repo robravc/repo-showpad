@@ -18,8 +18,23 @@
     min-height: 30px;
     max-height: 30px;
     background: white;
-  }
+}
 
-  .mat-header-cell {
+.mat-header-cell {
     color: black;
-  }
+}
+
+.paginator-wrapper {
+    padding: 3% 15% 0 15%;
+}
+
+.page-link {
+    border: none!important;
+}
+
+.pagination-page,
+.pagination-prev,
+.pagination-next {
+    padding: 5px;
+}
+
