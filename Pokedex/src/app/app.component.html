@@ -1,5 +1,14 @@
 <main class="container-fluid">
-  <navigation></navigation>
-  <poke-list></poke-list>
-  <poke-details></poke-details>
+  <div class="row">
+    <navigation></navigation>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <poke-list [totalPokemon]="totalPokemon"></poke-list>
+    </div>
+    <div class="col">
+      <poke-details></poke-details>
+    </div>
+  </div>
 </main>

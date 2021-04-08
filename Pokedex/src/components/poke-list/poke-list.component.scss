@@ -1,0 +1,25 @@
+#pokelist {
+    height: 75vh;
+    overflow-x: hidden;
+}
+
+.pokeTable {
+    width: 100%;
+    background-color: white;
+}
+
+.pokeTableCell {
+    color: black;
+}
+
+.mat-header-row {
+    position: sticky;
+    top: 0;
+    min-height: 30px;
+    max-height: 30px;
+    background: white;
+  }
+
+  .mat-header-cell {
+    color: black;
+  }

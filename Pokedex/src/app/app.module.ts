@@ -8,8 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PokeListComponent } from 'src/components/poke-list/poke-list.component';
 import { PokeDetailsComponent } from 'src/components/poke-details/poke-details.component';
 import { MatTableModule } from '@angular/material/table';
-import { PokeListService } from 'src/service/poke-list.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PokemonService } from 'src/services/pokemon.service';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { reducers } from 'src/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { PokemonEffects } from 'src/effects/pokemon.effects';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PaginationModule } from "ngx-bootstrap/pagination"
 
 @NgModule({
   declarations: [
@@ -23,13 +31,18 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+    NgxPaginationModule,
+    PaginationModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([PokemonEffects]),
   ],
   exports: [
     MatTableModule
   ],
   providers: [
-    PokeListService
+    PokemonService
   ],
   bootstrap: [AppComponent]
 })
