@@ -1,6 +1,9 @@
-import { PokemonFull } from 'src/models/pokemon-full.model';
-import { Pokemon } from 'src/models/pokemon.model'
-import { PokemonActions, PokemonActionTypes } from '../actions/pokemon.actions'
+import { Characteristic } from 'src/models/characteristic/characteristic.model';
+import { Habitat } from 'src/models/habitat/habitat.model';
+import { Illustration, IllustrationDetails } from 'src/models/illustration.model';
+import { Pokemon } from 'src/models/pokemon/pokemon.model';
+import { Sprite } from 'src/models/sprites.model';
+import { PokemonActions, PokemonActionTypes } from '../actions/pokemon.actions';
 
 export interface State {
   page: number
@@ -8,6 +11,9 @@ export interface State {
   previous: string
   next: string
   pokemon: Pokemon[]
+  characteristics: Characteristic[],
+  habitats: Habitat[]
+  pokemonInDetail: Pokemon
 }
  
 export const initialState: State = {
@@ -15,7 +21,10 @@ export const initialState: State = {
   count: 0,
   previous: '',
   next: '',
-  pokemon: []
+  pokemon: [],
+  characteristics: [],
+  habitats: [],
+  pokemonInDetail: <Pokemon>{}
 }
  
 export function pokemonReducer(state = initialState, action: PokemonActions): State {
@@ -28,6 +37,27 @@ export function pokemonReducer(state = initialState, action: PokemonActions): St
         previous: action.payload.previous,
         next: action.payload.next,
         pokemon: action.payload.results
+      }
+    }
+
+    case PokemonActionTypes.STORE_CHARACTERISTICS: {
+      return {
+        ...state,
+        characteristics: action.payload.results
+      }
+    }
+
+    case PokemonActionTypes.STORE_HABITATS: {
+      return {
+        ...state,
+        habitats: action.payload.results
+      }
+    }
+
+    case PokemonActionTypes.STORE_POKEMON_IN_DETAIL: {
+      return {
+        ...state,
+        pokemonInDetail: action.payload
       }
     }
 

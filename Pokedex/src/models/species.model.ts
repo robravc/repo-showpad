@@ -1,11 +1,12 @@
 import { GrowthRate } from "./growth-rate.model"
+import { Habitat } from "./habitat/habitat.model"
 
 export class Species {
     baseHappiness: number
     captureRate: number
     genderRate: number
     growthRate: GrowthRate
-    habitat: string
+    habitat: Habitat
     id: number
     isBaby: boolean
     isLegendary: boolean
@@ -19,7 +20,7 @@ export class Species {
         captureRate: number, 
         genderRate: number, 
         growthRate: GrowthRate, 
-        habitat: string, 
+        habitat: Habitat, 
         id: number, 
         isBaby: boolean, 
         isLegendary: boolean, 

@@ -7,20 +7,22 @@
     </thead>
     <tbody>
       <tr *ngFor="let pokemon of pokemon$ | async">
-        <td>{{ pokemon.id }}</td>
-        <td>
+        <td (click)="showDetails(pokemon)">{{ pokemon.id }}</td>
+        <td (click)="showDetails(pokemon)">
           <img [src]="pokemon.sprites.front_default" />
         </td>
-        <td>{{ pokemon.name }}</td>
-        <td>{{ pokemon.height }}</td>
-        <td>{{ pokemon.weight }}</td>
+        <td (click)="showDetails(pokemon)">{{ pokemon.name }}</td>
+        <td (click)="showDetails(pokemon)">{{ pokemon.height }}</td>
+        <td (click)="showDetails(pokemon)">{{ pokemon.weight }}</td>
       </tr>
     </tbody>
   </table>
 </section>
-<div class="paginator-wrapper">
-  <pagination [totalItems]="totalPokemon" 
-              [maxSize]="7"
-              [itemsPerPage]="itemsPerPage"
-              (pageChanged)="changePage($event)"></pagination>
-</div>
+<section>
+  <div class="paginator-wrapper">
+    <pagination [totalItems]="totalPokemon" 
+                [maxSize]="7"
+                [itemsPerPage]="itemsPerPage"
+                (pageChanged)="changePage($event)"></pagination>
+  </div>
+</section>

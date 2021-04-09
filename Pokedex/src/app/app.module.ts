@@ -18,6 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { PokemonEffects } from 'src/effects/pokemon.effects';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from "ngx-bootstrap/pagination"
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { PaginationModule } from "ngx-bootstrap/pagination"
     MatTableModule,
     NgxPaginationModule,
     PaginationModule,
+    CommonModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([PokemonEffects]),

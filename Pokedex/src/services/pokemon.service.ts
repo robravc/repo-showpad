@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { plainToClass } from 'class-transformer';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PokeResponse } from 'src/models/poke-response.model';
-import { PokemonFull } from 'src/models/pokemon-full.model';
-import { PokemonShort } from 'src/models/pokemon-short.model';
-import { Pokemon } from 'src/models/pokemon.model';
+import { Characteristic } from 'src/models/characteristic/characteristic.model';
+import { Habitat } from 'src/models/habitat/habitat.model';
+import { Pokemon } from 'src/models/pokemon/pokemon.model';
+import { PokeResponse } from 'src/models/response/poke-response.model';
+import { Result } from 'src/models/response/result.model';
 
 const POKEAPI_ROOT: string = 'https://pokeapi.co/api/v2/';
+const HABITAT_IMAGE_URL_ROOT: string = '../assets/img/habitat_'
 
 @Injectable()
 export class PokemonService {
@@ -44,31 +45,84 @@ export class PokemonService {
      * @param pokeResponse Response coming from the app controller, holding all the info about the pagination and the pokeShorts
      * @returns Observable with list of pokemon
      */
-    getBatchDetails(pokeResponse: PokeResponse): Observable<PokemonFull[]> {
-        let pokemonObservable = pokeResponse.results.map((pokeShort: Pokemon) => {
-            let short = plainToClass(PokemonShort, pokeShort)
-
-            return this.http
-                .get(short.url)
-                .pipe(
-                    map((data: any) => {
-                        return new PokemonFull(
-                            data.abilities,
-                            data.height,
-                            data.id,
-                            data.moves,
-                            data.name,
-                            data.order,
-                            data.species,
-                            data.sprites,
-                            data.stats,
-                            data.type,
-                            data.weight
-                        )
-                    })
-                )
+    getBatchDetails(pokeResponse: PokeResponse): Observable<Pokemon[]> {
+        let pokemonObservable: Observable<Pokemon>[] =
+            pokeResponse.results.map((result: Result) => {
+                return this.http
+                    .get(result.url)
+                    .pipe(
+                        map((data: any): Pokemon => {
+                            return new Pokemon(
+                                data.abilities,
+                                data.height,
+                                data.id,
+                                data.moves,
+                                data.name,
+                                data.order,
+                                data.species,
+                                data.sprites,
+                                data.stats,
+                                data.type,
+                                data.weight
+                            )
+                        })
+                    )
         })
     
         return forkJoin(pokemonObservable);
+    }
+
+    fetchCharacteristics(): Observable<PokeResponse> {
+        return this.http
+            .get(`${POKEAPI_ROOT}characteristic`)
+            .pipe(
+                map((data: any) => { 
+                    return new PokeResponse(0, 0, '', '', data.results) 
+                })
+            )
+    }
+
+     fetchCharacteristicsDetails(pokeResponse: PokeResponse): Observable<Characteristic[]> {
+        let characteristicsObservable: Observable<Characteristic>[] =
+            pokeResponse.results.map((result: Result) => {
+                return this.http
+                    .get(result.url)
+                    .pipe(
+                        map((data: any): Characteristic	 => {
+                            return new Characteristic(
+                                data.descriptions.filter((description: any) => description.language['name'] === 'en')[0].description,
+                                data.highest_stat,
+                                data.id,
+                            )
+                        })
+                    )
+        })
+    
+        return forkJoin(characteristicsObservable)
+    }
+
+    fetchHabitats(): Observable<PokeResponse> {
+        return this.http
+            .get(`${POKEAPI_ROOT}pokemon-habitat`)
+            .pipe(
+                map((data: any) => { 
+                    return new PokeResponse(0, 0, '', '', data.results) 
+                })
+            )
+    }
+
+     fetchHabitatsDetails(pokeResponse: PokeResponse): Observable<Habitat[]> {
+        let characteristicsObservable: Observable<Habitat>[] =
+            pokeResponse.results.map((result: Result) => {
+                return this.http
+                    .get(result.url)
+                    .pipe(
+                        map((data: any): Habitat => {
+                            return new Habitat(data.id, data.name, `${HABITAT_IMAGE_URL_ROOT}${data.name}.jpg`)
+                        })
+                    )
+        })
+    
+        return forkJoin(characteristicsObservable)
     }
 }

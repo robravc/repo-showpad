@@ -1,1 +1,14 @@
-<aside></aside>
+<section>
+    <div class="details-card-wrapper">
+        <figure class="pokemon-details" *ngIf="pokemonInDetail && showDetails">
+            <p>{{ pokemonInDetail?.name | titlecase }}</p>
+            <img [src]="mainImage" />
+            <div class="image-holder">
+                <img *ngFor="let image of images$ | async" [src]="image" />
+            </div>
+        </figure>
+        <figure class="no-details" *ngIf="noDetail">
+            Pick a pokemon from the list on the left
+        </figure>
+    </div>
+</section>

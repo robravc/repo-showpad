@@ -1,11 +1,11 @@
 import { DamageClass } from "./damage-class.model"
 import { Effect } from "./effect.model"
-import { Pokemon } from "./pokemon.model"
+import { Pokemon } from "./pokemon/pokemon.model"
 
 export class Move {
     id: number
     effect: Effect
-    learnedByPokemon: Array<Pokemon>
+    learnedByPokemon: Pokemon[]
     damageClass: DamageClass
 
     constructor(id: number, effect: Effect, learnedByPokemon: Array<Pokemon>, damageClass: DamageClass) {

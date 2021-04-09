@@ -1,0 +1,5 @@
+export enum AttributeEnum {
+    POKEDETAILS = 'POKEDETAILS',
+    CHARACTERISTIC = 'CHARACTERISTIC',
+    HABITAT = 'HABITAT'
+}

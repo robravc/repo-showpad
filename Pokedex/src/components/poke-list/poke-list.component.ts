@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { plainToClass } from 'class-transformer';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PokemonFull } from 'src/models/pokemon-full.model';
-import { Pokemon } from 'src/models/pokemon.model';
+import { ChangePageEvent, ShowDetailsEvent } from 'src/events/events';
+import { Pokemon } from 'src/models/pokemon/pokemon.model';
 import { State } from 'src/reducers/pokemon.reducer';
 import { selectPokemon } from 'src/selectors/index.';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination'
 
 @Component({
   selector: 'poke-list',
@@ -16,13 +16,11 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination'
   encapsulation: ViewEncapsulation.None
 })
 export class PokeListComponent implements AfterViewInit {
-    pokemon$: Observable<PokemonFull[]> = of()
+    pokemon$: Observable<Pokemon[]> = of()
 
     @Input() totalPokemon!: number
-    @Output() changePageEmitter: EventEmitter<{
-        page: number,
-        offset: number
-    }> = new EventEmitter<{ page:number, offset: number }>()
+    @Output() changePageEmitter: EventEmitter<ChangePageEvent> = new EventEmitter<ChangePageEvent>()
+    @Output() showDetailsEmitter: EventEmitter<ShowDetailsEvent> = new EventEmitter<ShowDetailsEvent>()
 
     page: number = 1
     itemsPerPage: number = 20
@@ -41,14 +39,15 @@ export class PokeListComponent implements AfterViewInit {
       this.pokemon$ = this.store
         .pipe(
           select(selectPokemon),
-          map((pokemon: Pokemon[]) => pokemon.map((pokemon) => plainToClass(PokemonFull, pokemon)))
+          map((pokemons) => pokemons.map((pokemon) => plainToClass(Pokemon, pokemon)))
         )
     }
 
     changePage(event: PageChangedEvent): void {
-      this.changePageEmitter.emit({
-        page: event.page,
-        offset: (event.page - 1) * event.itemsPerPage
-      })
+      this.changePageEmitter.emit(new ChangePageEvent(event.page, (event.page - 1) * event.itemsPerPage))
+    }
+
+    showDetails(pokemon: Pokemon): void {
+      this.showDetailsEmitter.emit(new ShowDetailsEvent(pokemon))
     }
 }

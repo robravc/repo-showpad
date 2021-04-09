@@ -1,9 +1,19 @@
 export class Illustration {
-    dreamWorld: string
-    officialArtwork: string
+    dream_world: IllustrationDetails
+    official_artwork: IllustrationDetails
     
-    constructor(dreamWorld: string, officialArtwork: string) {
-        this.dreamWorld = dreamWorld
-        this.officialArtwork = officialArtwork
+    constructor(dream_world: IllustrationDetails, official_artwork: IllustrationDetails) {
+        this.dream_world = dream_world
+        this.official_artwork = official_artwork
+    }
+}
+
+export class IllustrationDetails {
+    front_default: string
+    front_female?: string 
+
+    constructor(front_default: string, front_female?: string ) {
+        this.front_default = front_default
+        this.front_female = front_female
     }
 }

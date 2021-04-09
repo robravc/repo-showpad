@@ -11,3 +11,8 @@ export const selectPokemon = createSelector(
     getPokemonState,
     (state: State) => state.pokemon
 );
+
+export const selectPokemonInDetail = createSelector(
+    getPokemonState,
+    (state: State) => state.pokemonInDetail
+)
