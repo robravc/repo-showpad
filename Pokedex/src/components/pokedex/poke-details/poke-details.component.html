@@ -1,6 +1,6 @@
 <section>
     <div class="details-card-wrapper">
-        <figure class="pokemon-details" *ngIf="pokemonInDetail && showDetails">
+        <figure class="pokemon-details" *ngIf="(pokemonInDetail$ | async) && showDetails">
             <div class="row">
                 <div class="col"></div>
                 <div class="col">
@@ -39,7 +39,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <figcaption>{{ pokemonInDetail.name | titlecase }}</figcaption>
+                    <figcaption>{{ (pokemonInDetail$|async)?.name | titlecase }}</figcaption>
                 </div>
             </div>
             <div class="row">

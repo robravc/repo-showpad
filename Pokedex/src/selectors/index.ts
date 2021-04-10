@@ -22,4 +22,9 @@ export const selectCaptured = createSelector(
     (state: State) => state.captured
 )
 
+export const selectPokemonInDetail = createSelector(
+    getPokemonState,
+    (state: State) => state.pokemonInDetail
+)
+
 

@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
 import { Pokemon } from 'src/models/pokemon/pokemon.model';
 import { Species } from 'src/models/species.model';
 import { Stat } from 'src/models/stat.model';
 import { State } from 'src/reducers/pokemon.reducer';
-import { selectCaptured, selectPokemon, selectWishlist } from 'src/selectors';
+import { selectCaptured, selectPokemonInDetail, selectWishlist } from 'src/selectors';
 import { PokemonService } from 'src/services/pokemon.service';
 import {
   RemoveFromCapturedAction, RemoveFromWishlistAction,
@@ -36,7 +35,9 @@ export class PokeDetailsComponent {
   starImgRoot: string = STAR_IMG_ROOT
   pokeballImgRoot: string = POKEBALL_IMG_ROOT
 
-  pokemonInDetail: Pokemon = <Pokemon>{}
+  pokemonInDetail$: Observable<Pokemon> = this.store.pipe(select(selectPokemonInDetail))
+  wishlist$: Observable<Pokemon[]> = this.store.pipe(select(selectWishlist))
+  captured$: Observable<Pokemon[]> = this.store.pipe(select(selectCaptured))
 
   images$: Observable<string[]> = of()
   background: string = ''
@@ -48,11 +49,12 @@ export class PokeDetailsComponent {
   statsHeader = POKEMON_ATTRIBUTE_HEADERS.STATS
   movesHeader = POKEMON_ATTRIBUTE_HEADERS.MOVES
   othersHeader = POKEMON_ATTRIBUTE_HEADERS.OTHER
-
+  
   statsActive: boolean = true
   movesActive: boolean = false
   othersActive: boolean = false
 
+  pokemonInDetail: Pokemon = <Pokemon>{}
   id: number = 0
   stats$: Observable<Stat[]> = of()
   species: Species = <Species>{}
@@ -74,34 +76,50 @@ export class PokeDetailsComponent {
   constructor(private readonly store: Store<State>,
     private readonly pokemonService: PokemonService) { }
 
-  ngOnInit(): void {
-    if (this.pokemonInDetail && Object.keys(this.pokemonInDetail).length > 0) {
-      this.retrievePokemonData()
+  ngAfterViewInit(): void {
+    combineLatest([
+      this.pokemonInDetail$,
+      this.wishlist$,
+      this.captured$
+    ]).subscribe(([pokemonInDetail, wishlist, captured]) => {
+      this.starActive = ACTION_STATE.INACTIVE
+      this.pokeballActive = ACTION_STATE.INACTIVE
 
-      this.showDetails = true
-      this.noDetail = false
+      if (pokemonInDetail && Object.keys(pokemonInDetail).length > 0) {
+        this.pokemonInDetail = pokemonInDetail
 
-      this.verifyWishlisted()
-      this.verifyCaptured()
-    }
+        this.retrievePokemonData(pokemonInDetail)
+  
+        this.showDetails = true
+        this.noDetail = false
+  
+        if (wishlist.length > 0) {
+          this.verifyWishlisted(wishlist)
+        }
+
+        if (captured.length > 0) {
+          this.verifyCaptured(captured)
+        }
+      }
+    })
   }
 
-  retrievePokemonData(): void {
-    this.id = this.pokemonInDetail.id
-    this.mainImage = this.pokemonInDetail.sprites.other['official-artwork'].front_default
+  retrievePokemonData(pokemon: Pokemon): void {
+    this.id = pokemon.id
+    this.mainImage = pokemon.sprites.other['official-artwork'].front_default
 
     this.images$ = of([
-      this.pokemonInDetail.sprites.other['official-artwork'].front_default,
-      this.pokemonInDetail.sprites.front_default,
-      this.pokemonInDetail.sprites.other.dream_world.front_default
+      pokemon.sprites.other['official-artwork'].front_default,
+      pokemon.sprites.front_default,
+      pokemon.sprites.other.dream_world.front_default
     ])
 
-    this.baseExperience = this.pokemonInDetail.base_experience
-    this.stats$ = of(this.pokemonInDetail.stats
+    this.baseExperience = pokemon.base_experience
+    this.stats$ = of(pokemon.stats
       .map((stat: Stat): Stat => new Stat({ name: stat.stat.name, url: stat.stat.url }, stat.base_stat))
     )
 
-    this.fetchSpecies(this.pokemonInDetail.species.url)
+    this.fetchSpecies(pokemon.species.url)
   }
 
   fetchSpecies(url: string): void {
@@ -148,18 +166,20 @@ export class PokeDetailsComponent {
     }
   }
 
-  verifyWishlisted(): void {
-    this.store.pipe(
-      select(selectPokemon),
-      map((pokemon) => {
-        debugger
-        console.log(pokemon)
-      })
-    )
+  verifyWishlisted(wishlist: Pokemon[]): void {
+    for (let pokemon of wishlist) {
+      if (pokemon.id === this.id) {
+        this.starActive = ACTION_STATE.ACTIVE
+      }
+    }
   }
 
-  verifyCaptured(): void {
-
+  verifyCaptured(captured: Pokemon[]): void {
+    for (let pokemon of captured) {
+      if (pokemon.id === this.id) {
+        this.pokeballActive = ACTION_STATE.ACTIVE
+      }
+    }
   }
 
   ngOnDestroy() {
