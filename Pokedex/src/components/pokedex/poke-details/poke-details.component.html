@@ -39,7 +39,9 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <figcaption>{{ (pokemonInDetail$|async)?.name | titlecase }}</figcaption>
+                    <figcaption class="pokemon-name">
+                        {{ (pokemonInDetail$|async)?.name | titlecase }}
+                    </figcaption>
                 </div>
             </div>
             <div class="row">

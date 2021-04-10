@@ -1,5 +1,10 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
+@font-face {
+    font-family: muli;
+    src: url(assets/fonts/Muli-Light.ttf) format("truetype");
+  }
+
 .container-fluid {
     width: 80%;
     padding: 5%;
