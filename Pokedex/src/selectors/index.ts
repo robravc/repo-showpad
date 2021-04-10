@@ -12,7 +12,14 @@ export const selectPokemon = createSelector(
     (state: State) => state.pokemon
 );
 
-export const selectPokemonInDetail = createSelector(
+export const selectWishlist = createSelector(
     getPokemonState,
-    (state: State) => state.pokemonInDetail
+    (state: State) => state.wishlist
 )
+
+export const selectCaptured = createSelector(
+    getPokemonState,
+    (state: State) => state.captured
+)
+
+

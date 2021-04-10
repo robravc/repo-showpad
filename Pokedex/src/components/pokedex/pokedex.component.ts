@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FetchDetailsAction } from 'src/actions/pokemon.actions';
+import { FetchDetailsAction, StorePokemonInDetailAction } from 'src/actions/pokemon.actions';
 import { PokeDetailsComponent } from 'src/components/pokedex/poke-details/poke-details.component';
 import { ChangePageEvent, ShowDetailsEvent } from 'src/events/events';
 import { Pokemon } from 'src/models/pokemon/pokemon.model';
@@ -14,7 +14,7 @@ import { PokemonService } from 'src/services/pokemon.service';
   styleUrls: ['./pokedex.component.scss']
 })
 export class PokedexComponent implements OnInit {
-  @ViewChild(PokeDetailsComponent) pokeDetailsComponent = new PokeDetailsComponent(this.store)
+  @ViewChild(PokeDetailsComponent) pokeDetailsComponent: PokeDetailsComponent = <PokeDetailsComponent>{}
 
   totalPokemon: number = 0
   pokemonInDetail: Pokemon = <Pokemon>{}
@@ -43,7 +43,7 @@ export class PokedexComponent implements OnInit {
   }
 
   showDetails(event: ShowDetailsEvent): void {
-    this.pokemonInDetail = event.pokemon
-    this.pokeDetailsComponent.updatePokemonInDetail(event.pokemon)
+    this.store.dispatch(new StorePokemonInDetailAction(event.pokemon))
+    this.pokeDetailsComponent.ngOnInit()
   }
 }

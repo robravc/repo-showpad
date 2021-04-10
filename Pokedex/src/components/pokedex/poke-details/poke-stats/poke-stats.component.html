@@ -1,0 +1,15 @@
+<section class="poke-stats">
+    <article class="stats-wrapper">
+        <div class="row">
+            <div class="col-4">
+                <p *ngFor="let stat of stats$ | async">{{ stat.stat.name }}</p>
+            </div>
+            <div class="col">
+                <progressbar *ngFor="let stat of stats$ | async"
+                             [value]="stat.base_stat"
+                             [animate]="true"
+                             [max]="120">{{ stat.base_stat }}</progressbar>
+            </div>
+        </div>
+    </article>
+</section>

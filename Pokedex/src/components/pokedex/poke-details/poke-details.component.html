@@ -1,10 +1,67 @@
 <section>
     <div class="details-card-wrapper">
         <figure class="pokemon-details" *ngIf="pokemonInDetail && showDetails">
-            <p>{{ pokemonInDetail?.name | titlecase }}</p>
-            <img [src]="mainImage" />
-            <div class="image-holder">
-                <img *ngFor="let image of images$ | async" [src]="image" />
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <p *ngIf="isBaby">baby</p>
+                    <p *ngIf="isLegendary">legend</p>
+                    <p *ngIf="isMythical">myth</p>
+                </div>
+                <div class="col">
+                    <div class="actions-bar">
+                        <img [src]="starImgRoot" 
+                             class="action-button" 
+                             [ngClass]="starActive"
+                             (click)="toggleWishlisted()"/>
+                        <img [src]="pokeballImgRoot" 
+                             class="action-button" 
+                             [ngClass]="pokeballActive"
+                             (click)="toggleCaptured()"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col">
+                    <img [src]="mainImage" class="main-image"/>
+                </div>
+                <div class="col">
+                    <div class="image-holder-wrapper">
+                        <div class="image-holder">
+                            <img *ngFor="let image of images$ | async" 
+                                 [src]="image" 
+                                 class="thumbnail"
+                                 (click)="changeMainImage(image)"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <figcaption>{{ pokemonInDetail.name | titlecase }}</figcaption>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <tabset class="pokemon-attributes">
+                        <tab [heading]="statsHeader"
+                             [active]="statsActive"
+                             (selectTab)="statsActive = true">
+                           <poke-stats [stats$]="stats$"></poke-stats>
+                        </tab>
+                        <tab [heading]="movesHeader"
+                             [active]="movesActive"
+                             (selectTab)="movesActive = true">
+                           2
+                        </tab>
+                        <tab [heading]="othersHeader"
+                             [active]="othersActive"
+                             (selectTab)="othersActive = true">
+                           3
+                        </tab>
+                     </tabset>
+                </div>
             </div>
         </figure>
         <figure class="no-details" *ngIf="noDetail">

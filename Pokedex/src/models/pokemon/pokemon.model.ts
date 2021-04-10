@@ -1,36 +1,41 @@
-import { Ability } from "../ability.model";
-import { Move } from "../move.model";
-import { Species } from "../species.model";
-import { Sprite } from "../sprites.model";
+import { Short } from "../short.model";
+import { Stat } from "../stat.model";
 import { Type } from "../type.model";
 
 export class Pokemon {
-    abilities: Array<Ability>
+    abilities: Short[]
+    base_experience: number
     height: number
     id: number
-    moves: Array<Move>
+    moves: Short[]
     name: string
     order: number
-    species: Species
+    species: Short
     sprites: any
-    stats: Array<string>
+    stats: Stat[]
     type: Type
     weight: number
+    isCaptured: boolean
+    isWishlisted: boolean
 
     constructor(
-        abilities: Array<Ability>, 
+        abilities: Short[], 
+        base_experience: number, 
         height: number, 
         id: number, 
-        moves: Array<Move>, 
+        moves: Short[], 
         name: string, 
         order: number, 
-        species: Species, 
+        species: Short, 
         sprites: any, 
-        stats: Array<string>, 
+        stats: Stat[], 
         type: Type, 
-        weight: number
+        weight: number, 
+        isCaptured: boolean, 
+        isWishlisted: boolean
     ) {
         this.abilities = abilities
+        this.base_experience = base_experience
         this.height = height
         this.id = id
         this.moves = moves
@@ -41,5 +46,7 @@ export class Pokemon {
         this.stats = stats
         this.type = type
         this.weight = weight
-    }                             
+        this.isCaptured = isCaptured
+        this.isWishlisted = isWishlisted
+    }    
 }

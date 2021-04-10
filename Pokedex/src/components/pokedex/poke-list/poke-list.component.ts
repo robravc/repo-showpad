@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { ChangePageEvent, ShowDetailsEvent } from 'src/events/events';
 import { Pokemon } from 'src/models/pokemon/pokemon.model';
 import { State } from 'src/reducers/pokemon.reducer';
-import { selectPokemon } from 'src/selectors/index.';
+import { selectPokemon } from 'src/selectors';
 
 @Component({
   selector: 'poke-list',
@@ -16,38 +16,40 @@ import { selectPokemon } from 'src/selectors/index.';
   encapsulation: ViewEncapsulation.None
 })
 export class PokeListComponent implements AfterViewInit {
-    pokemon$: Observable<Pokemon[]> = of()
+  pokemon$: Observable<Pokemon[]> = of()
 
-    @Input() totalPokemon!: number
-    @Output() changePageEmitter: EventEmitter<ChangePageEvent> = new EventEmitter<ChangePageEvent>()
-    @Output() showDetailsEmitter: EventEmitter<ShowDetailsEvent> = new EventEmitter<ShowDetailsEvent>()
+  @Input() totalPokemon!: number
+  @Output() changePageEmitter: EventEmitter<ChangePageEvent> = new EventEmitter<ChangePageEvent>()
+  @Output() showDetailsEmitter: EventEmitter<ShowDetailsEvent> = new EventEmitter<ShowDetailsEvent>()
 
-    page: number = 1
-    itemsPerPage: number = 20
-    
-    headers: string[] = [
-      'No.', 
-      'Image', 
-      'Name', 
-      'Height', 
-      'Weight'
-    ];    
-    
-    constructor(private readonly store: Store<State>) {}
+  page: number = 1
+  itemsPerPage: number = 20
 
-    ngAfterViewInit(): void {
-      this.pokemon$ = this.store
-        .pipe(
-          select(selectPokemon),
-          map((pokemons) => pokemons.map((pokemon) => plainToClass(Pokemon, pokemon)))
+  headers: string[] = [
+    'No.',
+    'Image',
+    'Name',
+    'Height',
+    'Weight'
+  ];
+
+  constructor(private readonly store: Store<State>) { }
+
+  ngAfterViewInit(): void {
+    this.pokemon$ = this.store
+      .pipe(
+        select(selectPokemon),
+        map(
+          (pokemons) => pokemons.map((pokemon) => plainToClass(Pokemon, pokemon))
         )
-    }
+      )
+  }
 
-    changePage(event: PageChangedEvent): void {
-      this.changePageEmitter.emit(new ChangePageEvent(event.page, (event.page - 1) * event.itemsPerPage))
-    }
+  changePage(event: PageChangedEvent): void {
+    this.changePageEmitter.emit(new ChangePageEvent(event.page, (event.page - 1) * event.itemsPerPage))
+  }
 
-    showDetails(pokemon: Pokemon): void {
-      this.showDetailsEmitter.emit(new ShowDetailsEvent(pokemon))
-    }
+  showDetails(pokemon: Pokemon): void {
+    this.showDetailsEmitter.emit(new ShowDetailsEvent(pokemon))
+  }
 }

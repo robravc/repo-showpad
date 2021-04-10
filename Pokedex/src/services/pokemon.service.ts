@@ -7,6 +7,8 @@ import { Habitat } from 'src/models/habitat/habitat.model';
 import { Pokemon } from 'src/models/pokemon/pokemon.model';
 import { PokeResponse } from 'src/models/response/poke-response.model';
 import { Result } from 'src/models/response/result.model';
+import { Short } from 'src/models/short.model';
+import { Species } from 'src/models/species.model';
 
 const POKEAPI_ROOT: string = 'https://pokeapi.co/api/v2/';
 const HABITAT_IMAGE_URL_ROOT: string = '../assets/img/habitat_'
@@ -54,6 +56,7 @@ export class PokemonService {
                         map((data: any): Pokemon => {
                             return new Pokemon(
                                 data.abilities,
+                                data.base_experience,
                                 data.height,
                                 data.id,
                                 data.moves,
@@ -63,7 +66,9 @@ export class PokemonService {
                                 data.sprites,
                                 data.stats,
                                 data.type,
-                                data.weight
+                                data.weight,
+                                false,
+                                false
                             )
                         })
                     )
@@ -124,5 +129,27 @@ export class PokemonService {
         })
     
         return forkJoin(characteristicsObservable)
+    }
+
+    fetchSpecies(url: string): Observable<Species> {
+        return this.http
+            .get(url)
+            .pipe(
+                map((data: any) => new Species(
+                    data.base_happiness,
+                    data.capture_rate,
+                    data.color,
+                    data.gender_rate,
+                    new Short(data.growth_rate.name, data.growth_rate.url),
+                    new Short(data.habitat.name, data.habitat.url),
+                    data.id,
+                    data.is_baby,
+                    data.is_legendary,
+                    data.is_mythycal,
+                    data.name,
+                    data.order,
+                    data.shape
+                ))
+            )
     }
 }

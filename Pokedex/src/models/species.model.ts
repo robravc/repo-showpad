@@ -1,43 +1,45 @@
-import { GrowthRate } from "./growth-rate.model"
-import { Habitat } from "./habitat/habitat.model"
+import { Short } from "./short.model"
 
 export class Species {
-    baseHappiness: number
-    captureRate: number
-    genderRate: number
-    growthRate: GrowthRate
-    habitat: Habitat
+    base_happiness: number
+    capture_rate: number
+    color: Short
+    gender_rate: number
+    growth_rate: Short
+    habitat: Short
     id: number
-    isBaby: boolean
-    isLegendary: boolean
-    isMythical: boolean
+    is_baby: boolean
+    is_legendary: boolean
+    is_mythical: boolean
     name: string
     order: number
     shape: string
 
     constructor(
-        baseHappiness: number, 
-        captureRate: number, 
-        genderRate: number, 
-        growthRate: GrowthRate, 
-        habitat: Habitat, 
+        base_happiness: number, 
+        capture_rate: number, 
+        color: Short,
+        gender_rate: number, 
+        growth_rate: Short, 
+        habitat: Short, 
         id: number, 
-        isBaby: boolean, 
-        isLegendary: boolean, 
-        isMythical: boolean, 
+        is_baby: boolean, 
+        is_legendary: boolean, 
+        is_mythical: boolean, 
         name: string, 
         order: number, 
         shape: string
     ) {
-        this.baseHappiness = baseHappiness
-        this.captureRate = captureRate
-        this.genderRate = genderRate
-        this.growthRate = growthRate
+        this.base_happiness = base_happiness
+        this.capture_rate = capture_rate
+        this.color = color
+        this.gender_rate = gender_rate
+        this.growth_rate = growth_rate
         this.habitat = habitat
         this.id = id
-        this.isBaby = isBaby
-        this.isLegendary = isLegendary
-        this.isMythical = isMythical
+        this.is_baby = is_baby
+        this.is_legendary = is_legendary
+        this.is_mythical = is_mythical
         this.name = name
         this.order = order
         this.shape = shape

@@ -1,8 +1,6 @@
 import { Characteristic } from 'src/models/characteristic/characteristic.model';
 import { Habitat } from 'src/models/habitat/habitat.model';
-import { Illustration, IllustrationDetails } from 'src/models/illustration.model';
 import { Pokemon } from 'src/models/pokemon/pokemon.model';
-import { Sprite } from 'src/models/sprites.model';
 import { PokemonActions, PokemonActionTypes } from '../actions/pokemon.actions';
 
 export interface State {
@@ -11,9 +9,11 @@ export interface State {
   previous: string
   next: string
   pokemon: Pokemon[]
-  characteristics: Characteristic[],
-  habitats: Habitat[]
   pokemonInDetail: Pokemon
+  characteristics: Characteristic[]
+  habitats: Habitat[]
+  captured: Pokemon[]
+  wishlist: Pokemon[]
 }
  
 export const initialState: State = {
@@ -22,9 +22,11 @@ export const initialState: State = {
   previous: '',
   next: '',
   pokemon: [],
+  pokemonInDetail: <Pokemon>{},
   characteristics: [],
   habitats: [],
-  pokemonInDetail: <Pokemon>{}
+  captured: [],
+  wishlist: []
 }
  
 export function pokemonReducer(state = initialState, action: PokemonActions): State {
@@ -60,6 +62,46 @@ export function pokemonReducer(state = initialState, action: PokemonActions): St
         pokemonInDetail: action.payload
       }
     }
+
+    case PokemonActionTypes.STORE_IN_CAPTURED: {
+      return {
+        ...state,
+        captured: state.captured.concat(action.payload)
+      }
+    }
+
+    case PokemonActionTypes.STORE_IN_WISHLIST: {
+      return {
+        ...state,
+        wishlist: state.wishlist.concat(action.payload)
+      }
+    }
+
+    case PokemonActionTypes.REMOVE_FROM_WISHLIST: {
+      let wishlist = state.wishlist
+
+      let newWishlist = wishlist.filter((pokemon: Pokemon) => {
+         return pokemon.id !== action.payload.id
+      })
+
+      return {
+        ...state,
+        wishlist: newWishlist
+      }
+    }
+
+    case PokemonActionTypes.REMOVE_FROM_CAPTURED: {
+      let captured = state.captured
+
+      let newCaptured = captured.filter((pokemon: Pokemon) => {
+         return pokemon.id !== action.payload.id
+      })
+
+      return {
+        ...state,
+        captured: newCaptured
+      }
+    } 
 
     default: {
       return state;
