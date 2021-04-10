@@ -12,8 +12,14 @@ export interface State {
   pokemonInDetail: Pokemon
   characteristics: Characteristic[]
   habitats: Habitat[]
-  captured: Pokemon[]
-  wishlist: Pokemon[]
+  captured: {
+    count: number,
+    pokemon: Pokemon[]
+  },
+  wishlist: {
+    count: number,
+    pokemon: Pokemon[]
+  }
 }
  
 export const initialState: State = {
@@ -25,8 +31,14 @@ export const initialState: State = {
   pokemonInDetail: <Pokemon>{},
   characteristics: [],
   habitats: [],
-  captured: [],
-  wishlist: []
+  captured: {
+    count: 0,
+    pokemon: []
+  },
+  wishlist: {
+    count: 0,
+    pokemon: []
+  }
 }
  
 export function pokemonReducer(state = initialState, action: PokemonActions): State {
@@ -64,34 +76,47 @@ export function pokemonReducer(state = initialState, action: PokemonActions): St
     }
 
     case PokemonActionTypes.STORE_IN_CAPTURED: {
+      let pokemon = state.captured.pokemon.concat(action.payload)
+
       return {
         ...state,
-        captured: state.captured.concat(action.payload)
+        captured: {
+          count: pokemon.length,
+          pokemon: pokemon
+        }
       }
     }
 
     case PokemonActionTypes.STORE_IN_WISHLIST: {
+      let pokemon = state.wishlist.pokemon.concat(action.payload)
+
       return {
         ...state,
-        wishlist: state.wishlist.concat(action.payload)
+        wishlist: {
+          count: pokemon.length,
+          pokemon: pokemon
+        }
       }
     }
 
     case PokemonActionTypes.REMOVE_FROM_WISHLIST: {
-      let wishlist = state.wishlist
+      let wishlist = state.wishlist.pokemon
 
       let newWishlist = wishlist.filter((pokemon: Pokemon) => {
          return pokemon.id !== action.payload.id
       })
 
       return {
-        ...state,
-        wishlist: newWishlist
+          ...state,
+          wishlist: { 
+            count: newWishlist.length,
+            pokemon: newWishlist
+        }
       }
     }
 
     case PokemonActionTypes.REMOVE_FROM_CAPTURED: {
-      let captured = state.captured
+      let captured = state.captured.pokemon
 
       let newCaptured = captured.filter((pokemon: Pokemon) => {
          return pokemon.id !== action.payload.id
@@ -99,7 +124,10 @@ export function pokemonReducer(state = initialState, action: PokemonActions): St
 
       return {
         ...state,
-        captured: newCaptured
+        captured: {
+          count: newCaptured.length,
+          pokemon: newCaptured
+        }
       }
     } 
 

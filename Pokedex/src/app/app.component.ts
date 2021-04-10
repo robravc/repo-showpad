@@ -1,14 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { FetchCharacteristicsAction, FetchDetailsAction, FetchHabitatsAction } from 'src/actions/pokemon.actions';
-import { PokeDetailsComponent } from 'src/components/pokedex/poke-details/poke-details.component';
-import { ChangePageEvent, ShowDetailsEvent } from 'src/events/events';
-import { Pokemon } from 'src/models/pokemon/pokemon.model';
+import { FetchCharacteristicsAction, FetchHabitatsAction } from 'src/actions/pokemon.actions';
 import { PokeResponse } from 'src/models/response/poke-response.model';
 import { State } from 'src/reducers/pokemon.reducer';
 import { PokemonService } from 'src/services/pokemon.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +17,6 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly pokemonService: PokemonService,
     private readonly store: Store<State>,
-    private route: ActivatedRoute,
     private router: Router
   ) {}
 

@@ -6,8 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NavigationComponent } from 'src/components/navigation/navigation.component';
 import { PokedexModule } from 'src/components/pokedex/pokedex.module';
+import { WishlistComponent } from 'src/components/wishlist/wishlist.component';
 import { PokemonEffects } from 'src/effects/pokemon.effects';
 import { reducers } from 'src/reducers';
 import { PokemonService } from 'src/services/pokemon.service';
@@ -19,7 +21,8 @@ import { AppRoutingModule } from './routing/app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent
+    NavigationComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,7 @@ import { AppRoutingModule } from './routing/app-routing.module';
     BrowserAnimationsModule,
     CommonModule,
     PokedexModule,
+    PaginationModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([PokemonEffects]),

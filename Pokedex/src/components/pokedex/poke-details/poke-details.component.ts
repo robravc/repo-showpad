@@ -49,7 +49,7 @@ export class PokeDetailsComponent {
   statsHeader = POKEMON_ATTRIBUTE_HEADERS.STATS
   movesHeader = POKEMON_ATTRIBUTE_HEADERS.MOVES
   othersHeader = POKEMON_ATTRIBUTE_HEADERS.OTHER
-  
+
   statsActive: boolean = true
   movesActive: boolean = false
   othersActive: boolean = false

@@ -9,6 +9,14 @@ import { Pokemon } from 'src/models/pokemon/pokemon.model';
 import { State } from 'src/reducers/pokemon.reducer';
 import { selectPokemon } from 'src/selectors';
 
+export const HEADERS: string[] = [
+  'No.',
+  'Image',
+  'Name',
+  'Height',
+  'Weight'
+];
+
 @Component({
   selector: 'poke-list',
   templateUrl: './poke-list.component.html',
@@ -25,13 +33,7 @@ export class PokeListComponent implements AfterViewInit {
   page: number = 1
   itemsPerPage: number = 20
 
-  headers: string[] = [
-    'No.',
-    'Image',
-    'Name',
-    'Height',
-    'Weight'
-  ];
+  headers = HEADERS  
 
   constructor(private readonly store: Store<State>) { }
 
