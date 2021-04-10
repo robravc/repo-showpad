@@ -1,16 +1,10 @@
 <main class="container-fluid">
   <div class="row">
-    <navigation></navigation>
-  </div>
-  
-  <div class="row">
-    <div class="col">
-      <poke-list [totalPokemon]="totalPokemon"
-                 (changePageEmitter)="changePage($event)"
-                 (showDetailsEmitter)="showDetails($event)"></poke-list>
+    <div class="col-md-2">
+      <navigation></navigation>
     </div>
     <div class="col">
-      <poke-details [pokemonInDetail]="pokemonInDetail"></poke-details>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </main>

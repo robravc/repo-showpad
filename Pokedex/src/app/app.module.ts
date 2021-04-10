@@ -1,48 +1,38 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NavigationComponent } from 'src/components/navigation/navigation.component';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PokeListComponent } from 'src/components/poke-list/poke-list.component';
-import { PokeDetailsComponent } from 'src/components/poke-details/poke-details.component';
-import { MatTableModule } from '@angular/material/table';
-import { HttpClientModule } from '@angular/common/http';
-import { PokemonService } from 'src/services/pokemon.service';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { reducers } from 'src/reducers';
-import { EffectsModule } from '@ngrx/effects';
+import { NavigationComponent } from 'src/components/navigation/navigation.component';
+import { PokedexModule } from 'src/components/pokedex/pokedex.module';
 import { PokemonEffects } from 'src/effects/pokemon.effects';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { PaginationModule } from "ngx-bootstrap/pagination"
-import { CommonModule } from '@angular/common';
+import { reducers } from 'src/reducers';
+import { PokemonService } from 'src/services/pokemon.service';
+import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './routing/app-routing.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavigationComponent,
-    PokeListComponent,
-    PokeDetailsComponent
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTableModule,
-    NgxPaginationModule,
-    PaginationModule,
     CommonModule,
+    PokedexModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([PokemonEffects]),
   ],
-  exports: [
-    MatTableModule
-  ],
+  exports: [],
   providers: [
     PokemonService
   ],
