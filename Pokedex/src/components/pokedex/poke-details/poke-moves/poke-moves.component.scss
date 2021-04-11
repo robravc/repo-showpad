@@ -1,0 +1,69 @@
+.poke-moves-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    max-height: 285px;
+    margin-top: 5%;
+}
+
+.move {
+    width: 30%;
+    height: 20%;
+    text-align: right;
+    text-align: -webkit-right;
+    border-radius: 7px;
+    margin: 0 1% 2% 1%;
+    padding: 1%;
+    min-width: 145px;
+
+    &.black {
+        background: black;
+        color: white;
+    }
+    
+    &.blue {
+        background: blue;
+        color: white;
+    }
+    
+    &.brown {
+        background: brown;
+        color: white;
+    }
+    
+    &.gray {
+        background: gray;
+        color: white;
+    }
+    
+    &.green {
+        background: green;
+        color: white;
+    }
+    
+    &.pink {
+        background: pink;
+        color: white;
+    }
+    
+    &.purple {
+        background: purple;
+        color: white;
+    }
+    
+    &.red {
+        background: red;
+        color: white;
+    }
+    
+    &.white {
+        background: white;
+        color: black
+    }
+    
+    &.yellow {
+        background: yellow;
+        color: black
+    }
+}
+

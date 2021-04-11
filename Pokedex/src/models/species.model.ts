@@ -13,7 +13,7 @@ export class Species {
     is_mythical: boolean
     name: string
     order: number
-    shape: string
+    shape: Short
 
     constructor(
         base_happiness: number, 
@@ -28,7 +28,7 @@ export class Species {
         is_mythical: boolean, 
         name: string, 
         order: number, 
-        shape: string
+        shape: Short
     ) {
         this.base_happiness = base_happiness
         this.capture_rate = capture_rate

@@ -12,6 +12,7 @@ import { PokemonService } from 'src/services/pokemon.service';
 
 export const HEADERS: string[] = [
   'No.',
+  'Type',
   'Image',
   'Name',
   'Height',
@@ -25,6 +26,7 @@ export const HEADERS: string[] = [
   encapsulation: ViewEncapsulation.None
 })
 export class PokeListComponent implements AfterViewInit {
+  imgFolder: string = '../../assets/img/types/'
   pokemon$: Observable<Pokemon[]> = of()
 
   @Input() totalPokemon!: number

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, Observable, of } from 'rxjs';
+import { Move } from 'src/models/move.model';
 import { Pokemon } from 'src/models/pokemon/pokemon.model';
 import { Species } from 'src/models/species.model';
 import { Stat } from 'src/models/stat.model';
@@ -25,21 +26,28 @@ export enum ACTION_STATE {
 
 const STAR_IMG_ROOT = '../../../assets/img/star.png'
 const POKEBALL_IMG_ROOT = '../../../assets/img/pokeball.png'
+const PLACEHOLDER_STAR_ROOT = '../../../assets/img/placeholder_star.png'
 
 @Component({
   selector: 'poke-details',
   templateUrl: './poke-details.component.html',
-  styleUrls: ['./poke-details.component.scss']
+  styleUrls: ['./poke-details.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PokeDetailsComponent {
   starImgRoot: string = STAR_IMG_ROOT
   pokeballImgRoot: string = POKEBALL_IMG_ROOT
+  placeholderStar: string = PLACEHOLDER_STAR_ROOT
 
   pokemonInDetail$: Observable<Pokemon> = this.store.pipe(select(selectPokemonInDetail))
   wishlist$: Observable<Pokemon[]> = this.store.pipe(select(selectWishlist))
   captured$: Observable<Pokemon[]> = this.store.pipe(select(selectCaptured))
 
   images$: Observable<string[]> = of()
+  stats$: Observable<Stat[]> = of()
+  moves$: Observable<Move[]> = of()
+  species$: Observable<Species> = of()
+
   background: string = ''
   mainImage: string = ''
 
@@ -56,8 +64,6 @@ export class PokeDetailsComponent {
 
   pokemonInDetail: Pokemon = <Pokemon>{}
   id: number = 0
-  stats$: Observable<Stat[]> = of()
-  species: Species = <Species>{}
   baseHappiness: number = 0
   baseExperience: number = 0
   captureRate: number = 0
@@ -113,11 +119,14 @@ export class PokeDetailsComponent {
       pokemon.sprites.front_default,
       pokemon.sprites.other.dream_world.front_default
     ])
-
+    
     this.baseExperience = pokemon.base_experience
+
     this.stats$ = of(pokemon.stats
       .map((stat: Stat): Stat => new Stat({ name: stat.stat.name, url: stat.stat.url }, stat.base_stat))
     )
+
+    this.moves$ = of(pokemon.moves)
 
     this.fetchSpecies(pokemon.species.url)
   }
@@ -125,6 +134,8 @@ export class PokeDetailsComponent {
   fetchSpecies(url: string): void {
     this.pokemonService.fetchSpecies(url).subscribe(
       (data: Species) => {
+        this.species$ = of(data)
+        
         this.isBaby = data.is_baby
         this.isLegendary = data.is_legendary
         this.isMythical = data.is_mythical

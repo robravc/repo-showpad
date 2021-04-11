@@ -65,7 +65,7 @@ export class PokemonService {
                                 data.species,
                                 data.sprites,
                                 data.stats,
-                                data.type,
+                                data.types[0].type,
                                 data.weight,
                                 false,
                                 false
@@ -169,7 +169,7 @@ export class PokemonService {
                         data.species,
                         data.sprites,
                         data.stats,
-                        data.type,
+                        data.types[0].type,
                         data.weight,
                         false,
                         false

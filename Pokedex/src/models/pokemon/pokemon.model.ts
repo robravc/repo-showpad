@@ -1,19 +1,19 @@
+import { Move } from "../move.model";
 import { Short } from "../short.model";
 import { Stat } from "../stat.model";
-import { Type } from "../type.model";
 
 export class Pokemon {
     abilities: Short[]
     base_experience: number
     height: number
     id: number
-    moves: Short[]
+    moves: Move[]
     name: string
     order: number
     species: Short
     sprites: any
     stats: Stat[]
-    type: Type
+    type: Short
     weight: number
     isCaptured: boolean
     isWishlisted: boolean
@@ -23,13 +23,13 @@ export class Pokemon {
         base_experience: number, 
         height: number, 
         id: number, 
-        moves: Short[], 
+        moves: Move[], 
         name: string, 
         order: number, 
         species: Short, 
         sprites: any, 
         stats: Stat[], 
-        type: Type, 
+        type: Short, 
         weight: number, 
         isCaptured: boolean, 
         isWishlisted: boolean

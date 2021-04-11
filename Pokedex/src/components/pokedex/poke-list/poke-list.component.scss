@@ -1,6 +1,5 @@
 #pokelist {
     height: 75vh;
-    overflow-x: hidden;
 }
 
 .pokeTable {
@@ -30,23 +29,56 @@
 
 .page-link {
     border: none!important;
+    color: #2d2e83;
 }
+
+.page-item.active .page-link {
+    border-radius: 50px;
+    background-color: #2d2e83;
+}
+
 
 .pagination-page,
 .pagination-prev,
 .pagination-next {
+    border: none!important;
     padding: 5px;
+    color: #2d2e83;
+}
+
+thead {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0; 
 }
 
 tr {
     cursor: pointer;
+    vertical-align: baseline;
 }
 
 form {
-    input {
+    margin-bottom: 2%;
+    padding-right: 3%!important;
+
+    & input {
         font-family: muli, sans-serif, 'Font Awesome 5 Free', 'Open Sans';
         font-style: normal;
         font-weight: 900;
     }
+}
+
+.element-badge {
+    max-width: 30px;
+}
+
+.table-wrapper {
+    overflow-y: scroll;
+    height: 95%;
+    padding-right: 3%;
+}
+
+.paginator {
+    height: fit-content;
 }
 

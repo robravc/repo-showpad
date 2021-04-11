@@ -13,12 +13,12 @@ import { NavigationComponent } from 'src/components/navigation/navigation.compon
 import { PokedexModule } from 'src/components/pokedex/pokedex.module';
 import { WishlistComponent } from 'src/components/wishlist/wishlist.component';
 import { PokemonEffects } from 'src/effects/pokemon.effects';
+import { StatPipe } from 'src/pipes/stat.pipe';
 import { reducers } from 'src/reducers';
 import { PokemonService } from 'src/services/pokemon.service';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './routing/app-routing.module';
-
 
 @NgModule({
   declarations: [

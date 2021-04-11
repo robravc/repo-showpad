@@ -1,13 +1,11 @@
-import { DamageRelation } from "./damage-relation.model"
+import { Short } from "./short.model"
 
 export class Type {
-    id: number
-    name: string
-    damageRelations: DamageRelation
+  slot: number
+  type: Short
 
-  constructor(id: number, name: string, damageRelations: DamageRelation) {
-    this.id = id
-    this.name = name
-    this.damageRelations = damageRelations
+  constructor(slot: number, type: Short) {
+    this.slot = slot
+    this.type = type
   }
 }

@@ -4,7 +4,7 @@
   </a>
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav flex-column">
-      <li class="nav-item active">
+      <li class="nav-item main active">
         <a class="nav-link" routerLink="/pokedex">
           <fa-icon [icon]="faSearch"
                    tooltip="Find a pokemon"
@@ -13,7 +13,7 @@
                    class="navigator-button"></fa-icon>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item main">
         <a class="nav-link" routerLink="/captured">
           <img [src]="pokeballTransparent" 
                class="navigator-image" 
@@ -23,7 +23,7 @@
               />
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item main">
         <a class="nav-link" routerLink="/wishlist">
           <fa-icon [icon]="faStar" 
                    tooltip="Wishlist"

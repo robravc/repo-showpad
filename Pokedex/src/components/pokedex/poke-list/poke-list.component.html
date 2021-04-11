@@ -1,36 +1,50 @@
 <section id="pokelist">
-  <form>
-    <div class="form-group">
-      <input class="form-control"
-             type="search"
-             placeholder="Type here to find a pokemon..." 
-             (keyup)="searchPokemon($event)"/>
-    </div>
-  </form>
-  <table class="table">
-    <thead>
-      <th *ngFor="let header of headers">
-         {{ header }}
-      </th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let pokemon of pokemon$ | async">
-        <td (click)="showDetails(pokemon)">{{ pokemon.id }}</td>
-        <td (click)="showDetails(pokemon)">
-          <img [src]="pokemon.sprites.front_default" />
-        </td>
-        <td (click)="showDetails(pokemon)">{{ pokemon.name }}</td>
-        <td (click)="showDetails(pokemon)">{{ pokemon.height }}</td>
-        <td (click)="showDetails(pokemon)">{{ pokemon.weight }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <form>
+      <div class="form-group">
+        <input class="form-control"
+               type="search"
+               placeholder="Type here to find a pokemon..." 
+               (keyup)="searchPokemon($event)"/>
+      </div>
+    </form>
+  </div>
+  <section class="table-wrapper">
+    <table class="table">
+      <thead>
+        <th *ngFor="let header of headers">
+            {{ header }}
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pokemon of pokemon$ | async">
+          <td (click)="showDetails(pokemon)">{{ pokemon.id }}</td>
+          <td (click)="showDetails(pokemon)">
+            <img class="element-badge" 
+                  [src]="imgFolder + pokemon.type.name + '.png'" />
+          </td>
+          <td (click)="showDetails(pokemon)">
+            <img [src]="pokemon.sprites.front_default" />
+          </td>
+          <td (click)="showDetails(pokemon)">
+            <strong>
+              {{ pokemon.name | uppercase }}
+            </strong>
+          </td>
+          <td (click)="showDetails(pokemon)">{{ pokemon.height }}</td>
+          <td (click)="showDetails(pokemon)">{{ pokemon.weight }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 </section>
-<section>
-  <div class="paginator-wrapper">
-    <pagination [totalItems]="totalPokemon" 
-                [maxSize]="7"
-                [itemsPerPage]="itemsPerPage"
-                (pageChanged)="changePage($event)"></pagination>
+<section class="paginator">
+  <div class="row">
+    <div class="paginator-wrapper">
+      <pagination [totalItems]="totalPokemon" 
+                  [maxSize]="7"
+                  [itemsPerPage]="itemsPerPage"
+                  (pageChanged)="changePage($event)"></pagination>
+    </div>
   </div>
 </section>

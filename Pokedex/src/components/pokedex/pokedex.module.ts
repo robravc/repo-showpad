@@ -9,6 +9,9 @@ import { PokedexComponent } from './pokedex.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar'
 import { PokeStatsComponent } from './poke-details/poke-stats/poke-stats.component';
+import { PokeMovesComponent } from './poke-details/poke-moves/poke-moves.component';
+import { PokeOthersComponent } from './poke-details/poke-others/poke-others.component';
+import { StatPipe } from 'src/pipes/stat.pipe';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,9 @@ import { PokeStatsComponent } from './poke-details/poke-stats/poke-stats.compone
     PokeListComponent,
     PokeDetailsComponent,
     PokeStatsComponent,
+    PokeMovesComponent,
+    PokeOthersComponent,
+    StatPipe
   ],
   imports: [
     CommonModule,

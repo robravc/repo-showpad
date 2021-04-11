@@ -16,6 +16,10 @@ nav {
 }
 
 .nav-item {
+    &.main {
+        width: 100%;
+    }
+
     &:hover {
         /* Find cool hover effect for nav bar */
     }
@@ -60,3 +64,4 @@ nav {
 ul {
     height: 100%
 }
+

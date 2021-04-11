@@ -1,8 +1,14 @@
 <section>
     <div class="details-card-wrapper">
-        <figure class="pokemon-details" *ngIf="(pokemonInDetail$ | async) && showDetails">
+        <figure class="pokemon-details" 
+                [ngClass]="habitat"
+                *ngIf="(pokemonInDetail$ | async) && showDetails">
             <div class="row">
-                <div class="col"></div>
+                <div class="col">
+                    <div class="order-wrapper">
+                        #{{ (pokemonInDetail$|async)?.order }}
+                    </div>
+                </div>
                 <div class="col">
                     <p *ngIf="isBaby">baby</p>
                     <p *ngIf="isLegendary">legend</p>
@@ -55,19 +61,24 @@
                         <tab [heading]="movesHeader"
                              [active]="movesActive"
                              (selectTab)="movesActive = true">
-                           2
+                           <poke-moves [moves$]="moves$"
+                                       [color]="color"></poke-moves>
                         </tab>
                         <tab [heading]="othersHeader"
                              [active]="othersActive"
                              (selectTab)="othersActive = true">
-                           3
+                           <poke-others [species$]="species$"
+                                        [baseExperience]="baseExperience"></poke-others>
                         </tab>
                      </tabset>
                 </div>
             </div>
         </figure>
         <figure class="no-details" *ngIf="noDetail">
-            Pick a pokemon from the list on the left
+            <figcaption class="no-detail-placeholder">
+                <img [src]="placeholderStar" />
+                <p>Pick a pokemon from the list on the left</p>
+            </figcaption>
         </figure>
     </div>
 </section>

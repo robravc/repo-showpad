@@ -1,0 +1,16 @@
+<section class="poke-others">
+    <div class="others-wrapper">
+        <div class="row">
+            <div class="col">
+                <p *ngFor="let other of others">{{ other }}</p>
+            </div>
+            <div class="col">
+                <p>{{ baseExperience }}</p>
+                <p>{{ (species$ | async)?.habitat?.name | titlecase  }}</p>
+                <p>{{ (species$ | async)?.growth_rate?.name }}</p>
+                <p>{{ (species$ | async)?.shape?.name | titlecase  }}</p>                
+                <p>{{ (species$ | async)?.capture_rate }}</p>
+            </div>
+        </div>
+    </div>
+</section>

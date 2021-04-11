@@ -1,8 +1,8 @@
 <section class="poke-stats">
     <article class="stats-wrapper">
         <div class="row">
-            <div class="col-4">
-                <p *ngFor="let stat of stats$ | async">{{ stat.stat.name }}</p>
+            <div class="col-2">
+                <p *ngFor="let stat of stats$ | async">{{ stat.stat.name | Stat }}</p>
             </div>
             <div class="col">
                 <progressbar *ngFor="let stat of stats$ | async"

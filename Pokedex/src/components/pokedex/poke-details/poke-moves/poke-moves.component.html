@@ -1,0 +1,7 @@
+<section>
+    <div class='poke-moves-wrapper'>
+        <figure class="move" [ngClass]="color" *ngFor="let move of moves$ | async">
+            <p>{{move.move.name | titlecase}}</p>
+        </figure>
+    </div>
+</section>
