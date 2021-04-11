@@ -1,40 +1,40 @@
-<nav class="navbar navbar-expand-lg flex-column">
-  <a href="#">
-      <img [src]="pokeball" alt="Showpad Pokedex" class="pokeball-logo"/>
-  </a>
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav flex-column">
-      <li class="nav-item main active">
-        <a class="nav-link" routerLink="/pokedex">
-          <fa-icon [icon]="faSearch"
-                   tooltip="Find a pokemon"
-                   placement="left"
-                   container="body"
-                   class="navigator-button"></fa-icon>
-        </a>
-      </li>
-      <li class="nav-item main">
-        <a class="nav-link" routerLink="/captured">
-          <img [src]="pokeballTransparent" 
-               class="navigator-image" 
-               tooltip="Captured"
-               placement="left"
-               container="body"
-              />
-        </a>
-      </li>
-      <li class="nav-item main">
-        <a class="nav-link" routerLink="/wishlist">
-          <fa-icon [icon]="faStar" 
-                   tooltip="Wishlist"
-                   placement="left"
-                   container="body"
-                   class="navigator-button"></fa-icon>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <a href="#">
-      <img [src]="showpadLogo" alt="Showpad Pokedex" class="showpad-logo"/>
-  </a>
-</nav>
+  <nav class="navbar navbar-expand-lg flex-column">
+    <a href="#">
+        <img [src]="pokeball" alt="Showpad Pokedex" class="pokeball-logo"/>
+    </a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav flex-column">
+        <li class="nav-item main active">
+          <a class="nav-link" routerLink="/pokedex">
+            <fa-icon [icon]="faSearch"
+                    tooltip="Find a pokemon"
+                    placement="left"
+                    container="body"
+                    class="navigator-button"></fa-icon>
+          </a>
+        </li>
+        <li class="nav-item main">
+          <a class="nav-link" routerLink="/captured">
+            <img [src]="pokeballTransparent" 
+                class="navigator-image" 
+                tooltip="Captured"
+                placement="left"
+                container="body"
+                />
+          </a>
+        </li>
+        <li class="nav-item main">
+          <a class="nav-link" routerLink="/wishlist">
+            <fa-icon [icon]="faStar" 
+                    tooltip="Wishlist"
+                    placement="left"
+                    container="body"
+                    class="navigator-button"></fa-icon>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <a href="#">
+        <img [src]="showpadLogo" alt="Showpad Pokedex" class="showpad-logo"/>
+    </a>
+  </nav>

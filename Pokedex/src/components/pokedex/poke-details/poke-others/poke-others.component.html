@@ -6,9 +6,9 @@
             </div>
             <div class="col">
                 <p>{{ baseExperience }}</p>
-                <p>{{ (species$ | async)?.habitat?.name | titlecase  }}</p>
-                <p>{{ (species$ | async)?.growth_rate?.name }}</p>
-                <p>{{ (species$ | async)?.shape?.name | titlecase  }}</p>                
+                <p>{{ (species$ | async)?.habitat?.name | titlecase }}</p>
+                <p>{{ (species$ | async)?.growth_rate?.name | titlecase }}</p>
+                <p>{{ (species$ | async)?.shape?.name | titlecase }}</p>                
                 <p>{{ (species$ | async)?.capture_rate }}</p>
             </div>
         </div>

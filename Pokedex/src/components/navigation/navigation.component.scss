@@ -19,10 +19,6 @@ nav {
     &.main {
         width: 100%;
     }
-
-    &:hover {
-        /* Find cool hover effect for nav bar */
-    }
 }
 
 .navbar-brand {
@@ -64,4 +60,39 @@ nav {
 ul {
     height: 100%
 }
+
+@media screen and (max-width: 1431px) {
+    .pagination-wrapper {
+        padding: 5% 0 0 0;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .navigator-button {
+        font-size: 1.5rem;
+        margin-top: -4rem;
+    }
+
+    .navigator-image {
+        max-width: 30px !important;
+        padding-top: 40%;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    nav {
+        height: auto;
+        width: 72vw;
+    }
+
+    .pokeball-logo {
+        margin-top: 0px;
+    }
+
+    .showpad-logo {
+        transform: none;
+    }
+}
+
+
 

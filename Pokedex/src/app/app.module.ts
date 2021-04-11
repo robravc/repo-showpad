@@ -8,23 +8,25 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { TooltipModule } from 'ngx-bootstrap/tooltip'
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { CapturedComponent } from 'src/components/captured/captured.component';
 import { NavigationComponent } from 'src/components/navigation/navigation.component';
 import { PokedexModule } from 'src/components/pokedex/pokedex.module';
 import { WishlistComponent } from 'src/components/wishlist/wishlist.component';
 import { PokemonEffects } from 'src/effects/pokemon.effects';
-import { StatPipe } from 'src/pipes/stat.pipe';
 import { reducers } from 'src/reducers';
 import { PokemonService } from 'src/services/pokemon.service';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './routing/app-routing.module';
+import { NotifierModule } from 'angular-notifier';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    WishlistComponent
+    WishlistComponent,
+    CapturedComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +37,7 @@ import { AppRoutingModule } from './routing/app-routing.module';
     PokedexModule,
     PaginationModule,
     FontAwesomeModule,
+    NotifierModule.withConfig({}),
     TooltipModule.forRoot(),
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),

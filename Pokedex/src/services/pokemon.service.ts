@@ -36,6 +36,9 @@ export class PokemonService {
                         data.previous,
                         data.results
                     )
+                }),
+                catchError(err => {
+                    return throwError(err);
                 })
             )
     }
@@ -67,9 +70,10 @@ export class PokemonService {
                                 data.stats,
                                 data.types[0].type,
                                 data.weight,
-                                false,
-                                false
                             )
+                        }),
+                        catchError(err => {
+                            return throwError(err);
                         })
                     )
         })
@@ -83,6 +87,9 @@ export class PokemonService {
             .pipe(
                 map((data: any) => { 
                     return new PokeResponse(0, 0, '', '', data.results) 
+                }),
+                catchError(err => {
+                    return throwError(err);
                 })
             )
     }
@@ -99,6 +106,9 @@ export class PokemonService {
                                 data.highest_stat,
                                 data.id,
                             )
+                        }),
+                        catchError(err => {
+                            return throwError(err);
                         })
                     )
         })
@@ -112,6 +122,9 @@ export class PokemonService {
             .pipe(
                 map((data: any) => { 
                     return new PokeResponse(0, 0, '', '', data.results) 
+                }),
+                catchError(err => {
+                    return throwError(err);
                 })
             )
     }
@@ -124,6 +137,9 @@ export class PokemonService {
                     .pipe(
                         map((data: any): Habitat => {
                             return new Habitat(data.id, data.name, `${HABITAT_IMAGE_URL_ROOT}${data.name}.jpg`)
+                        }),
+                        catchError(err => {
+                            return throwError(err);
                         })
                     )
         })
@@ -149,7 +165,10 @@ export class PokemonService {
                     data.name,
                     data.order,
                     data.shape
-                ))
+                )),
+                catchError(err => {
+                    return throwError(err);
+                })
             )
     }
 
@@ -171,8 +190,6 @@ export class PokemonService {
                         data.stats,
                         data.types[0].type,
                         data.weight,
-                        false,
-                        false
                     )
                 }),
                 catchError(err => {

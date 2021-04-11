@@ -1,11 +1,17 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
+//@import '~/angular-notifier/styles.scss';
 
 @font-face {
     font-family: muli;
     src: url(assets/fonts/muli-light.ttf) format("truetype");
 }
 
+html, body {
+    height: 100%;
+}
+
 .container-fluid {
+    height: 100%;
     width: 80%;
     padding: 4%;
 }
@@ -31,4 +37,18 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     border-radius: 10px;
     display: none;
+}
+
+.element-badge {
+    max-width: 30px;
+}
+
+.table-wrapper {
+    overflow-y: scroll;
+    height: 95%;
+    padding-right: 3%;
+}
+
+.paginator {
+    height: fit-content;
 }

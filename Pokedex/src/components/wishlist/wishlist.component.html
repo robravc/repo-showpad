@@ -10,9 +10,17 @@
             <tr *ngFor="let pokemon of pokemon$ | async">
                 <td>{{ pokemon.id }}</td>
                 <td>
+                    <img class="element-badge" 
+                        [src]="imgFolder + pokemon.type.name + '.png'" />
+                </td>
+                <td>
                     <img [src]="pokemon.sprites.front_default" />
                 </td>
-                <td>{{ pokemon.name }}</td>
+                <td>
+                    <strong>
+                        {{ pokemon.name | uppercase }}
+                    </strong>
+                </td>
                 <td>{{ pokemon.height }}</td>
                 <td>{{ pokemon.weight }}</td>
                 <td (click)="removeFromWishlist(pokemon)">X</td>

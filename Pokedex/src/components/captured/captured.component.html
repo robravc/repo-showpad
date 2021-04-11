@@ -1,1 +1,39 @@
-<p>captured works!</p>
+<div class="wrapper">
+    <section id="captured">
+        <table class="table">
+            <thead>
+            <th *ngFor="let header of headers">
+                {{ header }}
+            </th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let pokemon of pokemon$ | async">
+                <td>{{ pokemon.id }}</td>
+                <td>
+                    <img class="element-badge" 
+                        [src]="imgFolder + pokemon.type.name + '.png'" />
+                </td>
+                <td>
+                    <img [src]="pokemon.sprites.front_default" />
+                </td>     
+                <td>
+                    <strong>
+                        {{ pokemon.name | uppercase }}
+                    </strong>
+                </td>
+                <td>{{ pokemon.height }}</td>
+                <td>{{ pokemon.weight }}</td>
+                <td (click)="removeFromCaptured(pokemon)">X</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section>
+        <div class="paginator-wrapper">
+            <pagination [totalItems]="totalPokemon" 
+                        [maxSize]="7"
+                        [itemsPerPage]="itemsPerPage"
+                        (pageChanged)="changePage($event)"></pagination>
+        </div>
+    </section>
+</div>

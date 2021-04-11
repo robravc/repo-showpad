@@ -15,8 +15,6 @@ export class Pokemon {
     stats: Stat[]
     type: Short
     weight: number
-    isCaptured: boolean
-    isWishlisted: boolean
 
     constructor(
         abilities: Short[], 
@@ -31,8 +29,6 @@ export class Pokemon {
         stats: Stat[], 
         type: Short, 
         weight: number, 
-        isCaptured: boolean, 
-        isWishlisted: boolean
     ) {
         this.abilities = abilities
         this.base_experience = base_experience
@@ -46,7 +42,5 @@ export class Pokemon {
         this.stats = stats
         this.type = type
         this.weight = weight
-        this.isCaptured = isCaptured
-        this.isWishlisted = isWishlisted
     }    
 }

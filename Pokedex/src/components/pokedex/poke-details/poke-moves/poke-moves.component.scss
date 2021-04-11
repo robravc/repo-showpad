@@ -2,8 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
-    max-height: 285px;
-    margin-top: 5%;
+    max-height: 250px;
+    margin-top: 4%;
 }
 
 .move {
@@ -15,6 +15,7 @@
     margin: 0 1% 2% 1%;
     padding: 1%;
     min-width: 145px;
+    text-align: center;
 
     &.black {
         background: black;
@@ -64,6 +65,35 @@
     &.yellow {
         background: yellow;
         color: black
+    }
+}
+
+@media screen and (min-width: 1790px) and (max-width: 1902px) {
+    .move {
+        min-width: none;
+    }
+}
+
+@media screen and (min-width: 1500px) and (max-width: 1544px) {
+    .poke-moves-wrapper {
+        max-height: 200px;
+    }
+}
+
+@media screen and (min-width: 1298px) and (max-width: 1500px) {
+    .poke-moves-wrapper {
+        max-height: 222px;
+    }
+
+    .move {
+        min-width: 145px;
+    }
+}
+
+@media screen and (min-width: 1272px) and (max-width: 1298px) {
+    .move {
+        width: 30%;
+        min-width: 136px;
     }
 }
 

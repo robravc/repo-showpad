@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { plainToClass } from 'class-transformer';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
@@ -10,6 +10,7 @@ import { State } from 'src/reducers/pokemon.reducer';
 import { selectPokemon } from 'src/selectors';
 import { PokemonService } from 'src/services/pokemon.service';
 
+export const IMG_FOLDER = '../../assets/img/types/'
 export const HEADERS: string[] = [
   'No.',
   'Type',
@@ -25,9 +26,12 @@ export const HEADERS: string[] = [
   styleUrls: ['./poke-list.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class PokeListComponent implements AfterViewInit {
-  imgFolder: string = '../../assets/img/types/'
-  pokemon$: Observable<Pokemon[]> = of()
+export class PokeListComponent {
+  imgFolder: string = IMG_FOLDER
+  pokemon$: Observable<Pokemon[]> = this.store.pipe(
+    select(selectPokemon),
+    map((pokemons) => pokemons.map((pokemon) => plainToClass(Pokemon, pokemon)))
+  )
 
   @Input() totalPokemon!: number
   @Output() changePageEmitter: EventEmitter<ChangePageEvent> = new EventEmitter<ChangePageEvent>()
@@ -41,18 +45,11 @@ export class PokeListComponent implements AfterViewInit {
   constructor(private readonly store: Store<State>,
     private readonly pokemonService: PokemonService) { }
 
-  ngAfterViewInit(): void {
-    this.fillPokemon()
-  }
-
   fillPokemon(): void {
-    this.pokemon$ = this.store
-      .pipe(
-        select(selectPokemon),
-        map(
-          (pokemons) => pokemons.map((pokemon) => plainToClass(Pokemon, pokemon))
-        )
-      )
+    this.pokemon$ = this.store.pipe(
+      select(selectPokemon),
+      map((pokemons) => pokemons.map((pokemon) => plainToClass(Pokemon, pokemon)))
+    )
   }
 
   changePage(event: PageChangedEvent): void {

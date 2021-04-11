@@ -8,7 +8,7 @@ import { ChangePageEvent } from 'src/events/events';
 import { Pokemon } from 'src/models/pokemon/pokemon.model';
 import { State } from 'src/reducers/pokemon.reducer';
 import { selectWishlist, selectWishlistCount } from 'src/selectors';
-import { HEADERS } from '../pokedex/poke-list/poke-list.component';
+import { HEADERS, IMG_FOLDER } from '../pokedex/poke-list/poke-list.component';
 
 @Component({
   selector: 'wishlist',
@@ -16,6 +16,7 @@ import { HEADERS } from '../pokedex/poke-list/poke-list.component';
   styleUrls: ['./wishlist.component.scss']
 })
 export class WishlistComponent implements OnInit {
+  imgFolder: string = IMG_FOLDER
   headers = [
     ...HEADERS,
     'Remove'

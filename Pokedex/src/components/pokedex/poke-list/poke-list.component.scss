@@ -68,17 +68,8 @@ form {
     }
 }
 
-.element-badge {
-    max-width: 30px;
+@media screen and (min-width: 1902px) {
+    #pokelist {
+        height: 77vh;
+    }
 }
-
-.table-wrapper {
-    overflow-y: scroll;
-    height: 95%;
-    padding-right: 3%;
-}
-
-.paginator {
-    height: fit-content;
-}
-

@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { NotifierService } from 'angular-notifier';
 import { combineLatest, Observable, of } from 'rxjs';
 import { Move } from 'src/models/move.model';
 import { Pokemon } from 'src/models/pokemon/pokemon.model';
@@ -34,7 +35,7 @@ const PLACEHOLDER_STAR_ROOT = '../../../assets/img/placeholder_star.png'
   styleUrls: ['./poke-details.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class PokeDetailsComponent {
+export class PokeDetailsComponent implements OnInit {
   starImgRoot: string = STAR_IMG_ROOT
   pokeballImgRoot: string = POKEBALL_IMG_ROOT
   placeholderStar: string = PLACEHOLDER_STAR_ROOT
@@ -80,9 +81,10 @@ export class PokeDetailsComponent {
   pokeballActive: string = ACTION_STATE.INACTIVE
 
   constructor(private readonly store: Store<State>,
-    private readonly pokemonService: PokemonService) { }
+    private readonly pokemonService: PokemonService,
+    private readonly notifier: NotifierService) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     combineLatest([
       this.pokemonInDetail$,
       this.wishlist$,
@@ -157,11 +159,11 @@ export class PokeDetailsComponent {
     if (this.starActive === ACTION_STATE.INACTIVE) {
       this.store.dispatch(new StoreInWishlistAction(this.pokemonInDetail))
       this.starActive = ACTION_STATE.ACTIVE
-      /* NOTIFICATION HERE */
+      this.notifier.notify('success', 'Pokemon successfully added to Wishlist');
     } else {
       this.store.dispatch(new RemoveFromWishlistAction(this.pokemonInDetail))
       this.starActive = ACTION_STATE.INACTIVE
-      /* NOTIFICATION HERE */
+      this.notifier.notify('success', 'Pokemon removed from the wishlist');
     }
   }
 
@@ -169,11 +171,11 @@ export class PokeDetailsComponent {
     if (this.pokeballActive === ACTION_STATE.INACTIVE) {
       this.store.dispatch(new StoreInCapturedAction(this.pokemonInDetail))
       this.pokeballActive = ACTION_STATE.ACTIVE
-      /* NOTIFICATION HERE */
+      this.notifier.notify('success', 'Pokemon successfully added to Captured List');
     } else {
       this.store.dispatch(new RemoveFromCapturedAction(this.pokemonInDetail))
       this.pokeballActive = ACTION_STATE.INACTIVE
-      /* NOTIFICATION HERE */
+      this.notifier.notify('success', 'Pokemon removed to Captured List');
     }
   }
 
@@ -191,9 +193,5 @@ export class PokeDetailsComponent {
         this.pokeballActive = ACTION_STATE.ACTIVE
       }
     }
-  }
-
-  ngOnDestroy() {
-
   }
 }
