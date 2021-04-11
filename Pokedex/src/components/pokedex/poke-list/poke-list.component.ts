@@ -8,6 +8,7 @@ import { ChangePageEvent, ShowDetailsEvent } from 'src/events/events';
 import { Pokemon } from 'src/models/pokemon/pokemon.model';
 import { State } from 'src/reducers/pokemon.reducer';
 import { selectPokemon } from 'src/selectors';
+import { PokemonService } from 'src/services/pokemon.service';
 
 export const HEADERS: string[] = [
   'No.',
@@ -35,9 +36,14 @@ export class PokeListComponent implements AfterViewInit {
 
   headers = HEADERS  
 
-  constructor(private readonly store: Store<State>) { }
+  constructor(private readonly store: Store<State>,
+    private readonly pokemonService: PokemonService) { }
 
   ngAfterViewInit(): void {
+    this.fillPokemon()
+  }
+
+  fillPokemon(): void {
     this.pokemon$ = this.store
       .pipe(
         select(selectPokemon),
@@ -53,5 +59,24 @@ export class PokeListComponent implements AfterViewInit {
 
   showDetails(pokemon: Pokemon): void {
     this.showDetailsEmitter.emit(new ShowDetailsEvent(pokemon))
+  }
+
+  searchPokemon(event: any): void {
+    let value = event.srcElement.value
+
+    if (value.length > 3) {
+      this.pokemonService.searchPokemon(event.srcElement.value).subscribe(
+        (data) => {
+          this.pokemon$ = of([<Pokemon>data])
+        },
+        (err) => {
+          console.log(err)
+        }
+      )
+    }
+
+    if (value === '') {
+      this.fillPokemon()
+    }
   }
 }

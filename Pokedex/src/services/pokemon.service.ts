@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { forkJoin, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Characteristic } from 'src/models/characteristic/characteristic.model';
 import { Habitat } from 'src/models/habitat/habitat.model';
 import { Pokemon } from 'src/models/pokemon/pokemon.model';
@@ -150,6 +150,34 @@ export class PokemonService {
                     data.order,
                     data.shape
                 ))
+            )
+    }
+
+    searchPokemon(name: string): Observable<Pokemon | unknown> {
+        return this.http
+            .get(`${POKEAPI_ROOT}pokemon/${name}`)
+            .pipe(
+                map((data: any): Pokemon => {
+                    return new Pokemon(
+                        data.abilities,
+                        data.base_experience,
+                        data.height,
+                        data.id,
+                        data.moves,
+                        data.name,
+                        data.order,
+                        data.species,
+                        data.sprites,
+                        data.stats,
+                        data.type,
+                        data.weight,
+                        false,
+                        false
+                    )
+                }),
+                catchError(err => {
+                    return throwError(err);
+                })
             )
     }
 }
