@@ -1,4 +1,5 @@
 import { Pipe } from '@angular/core';
+
 const enum UNPIPED_STATS {
     Hp = 'hp',
     Attack = 'attack',

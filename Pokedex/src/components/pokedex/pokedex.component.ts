@@ -35,6 +35,9 @@ export class PokedexComponent implements OnInit {
         (data: PokeResponse) => {
           this.totalPokemon = data.count ?? 0
           this.store.dispatch(new FetchDetailsAction(data))
+        },
+        (err) => {
+          console.log(err)
         }
       ) 
   }

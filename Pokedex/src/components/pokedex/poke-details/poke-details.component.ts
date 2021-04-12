@@ -147,6 +147,9 @@ export class PokeDetailsComponent implements OnInit {
 
         this.baseHappiness = data.base_happiness
         this.captureRate = data.capture_rate
+      },
+      (err) => {
+        console.log(err)
       }
     )
   }

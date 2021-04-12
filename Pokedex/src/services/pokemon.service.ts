@@ -44,7 +44,7 @@ export class PokemonService {
     }
 
     /**
-     * Gets details for a whole batch of PokeShorts
+     * Gets details for a whole batch of results
      * 
      * @see: src/models/pokemon-short.model
      * @param pokeResponse Response coming from the app controller, holding all the info about the pagination and the pokeShorts
@@ -81,6 +81,11 @@ export class PokemonService {
         return forkJoin(pokemonObservable);
     }
 
+    /**
+     * Fetches characteristics from API
+     * 
+     * @returns Observable of pokeResponse which containes the shorts for the characteristics
+     */
     fetchCharacteristics(): Observable<PokeResponse> {
         return this.http
             .get(`${POKEAPI_ROOT}characteristic`)
@@ -94,7 +99,13 @@ export class PokemonService {
             )
     }
 
-     fetchCharacteristicsDetails(pokeResponse: PokeResponse): Observable<Characteristic[]> {
+    /**
+     * Retrieves the complete info for characteristics
+     * 
+     * @param pokeResponse Contains the short info for the characteristics
+     * @returns Observable of full characteristics
+     */
+    fetchCharacteristicsDetails(pokeResponse: PokeResponse): Observable<Characteristic[]> {
         let characteristicsObservable: Observable<Characteristic>[] =
             pokeResponse.results.map((result: Result) => {
                 return this.http
@@ -116,6 +127,11 @@ export class PokemonService {
         return forkJoin(characteristicsObservable)
     }
 
+    /**
+     * Fetches habitats from API
+     * 
+     * @returns Observable of pokeResponse which containes the shorts for the habitats
+     */
     fetchHabitats(): Observable<PokeResponse> {
         return this.http
             .get(`${POKEAPI_ROOT}pokemon-habitat`)
@@ -129,8 +145,14 @@ export class PokemonService {
             )
     }
 
-     fetchHabitatsDetails(pokeResponse: PokeResponse): Observable<Habitat[]> {
-        let characteristicsObservable: Observable<Habitat>[] =
+    /**
+     * Retrieves the complete info for habitats
+     * 
+     * @param pokeResponse Contains the short info for the habitats
+     * @returns Observable of full habitats
+     */
+    fetchHabitatsDetails(pokeResponse: PokeResponse): Observable<Habitat[]> {
+        let habitatsObservable: Observable<Habitat>[] =
             pokeResponse.results.map((result: Result) => {
                 return this.http
                     .get(result.url)
@@ -144,9 +166,15 @@ export class PokemonService {
                     )
         })
     
-        return forkJoin(characteristicsObservable)
+        return forkJoin(habitatsObservable)
     }
 
+    /**
+     * Retrieves the complete info for species of pokemon
+     * 
+     * @param pokeResponse Contains the short info for the species
+     * @returns Observable of full species
+     */
     fetchSpecies(url: string): Observable<Species> {
         return this.http
             .get(url)
@@ -172,6 +200,12 @@ export class PokemonService {
             )
     }
 
+    /**
+     * Fires a request to the pokeAPI to retrieve a pokemon with a name
+     * 
+     * @param name pokemon name
+     * @returns Observable of pokemon or nothing
+     */
     searchPokemon(name: string): Observable<Pokemon | unknown> {
         return this.http
             .get(`${POKEAPI_ROOT}pokemon/${name}`)
